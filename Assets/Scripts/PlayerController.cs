@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
+        
+
+        if(currentMapName == "Battle")
+        {
+            Destroy(this.gameObject);
+        }
+        else
         DontDestroyOnLoad(this.gameObject);
     }
 
