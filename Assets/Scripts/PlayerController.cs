@@ -6,41 +6,43 @@ public class PlayerController : MonoBehaviour
 {
     public string currentMapName;
     public float moveSpeed;
-    float axisH;
-    float axisV;
-
-    Rigidbody2D rigid;
+    Animator animator;
+    Rigidbody2D rigidbody2D;
     
+    bool playerMoving;
+    Vector2 lastMove;
 
-    void Awake()
-    {
-        rigid = gameObject.GetComponent<Rigidbody2D>();
-    }
-    
     void Start()
     {
-        
-
-        if(currentMapName == "Battle")
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        DontDestroyOnLoad(this.gameObject);
+        animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
-
 
     void Update()
     {
-        axisH = Input.GetAxisRaw("Horizontal");
-        axisV = Input.GetAxisRaw("Vertical");
-        
+        playerMoving = false;
 
-        
-    }
+        if(Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+        {
+            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
 
-    void FixedUpdate()
-    {
-        rigid.velocity = new Vector2(axisH,axisV) * moveSpeed;
+            playerMoving = true;
+            lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+        }
+
+         if(Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
+        {
+            transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
+
+            playerMoving = true;
+            lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
+        }
+
+        animator.SetFloat("DirX",Input.GetAxisRaw("Horizontal"));
+        animator.SetFloat("DirY",Input.GetAxisRaw("Vertical"));
+        animator.SetBool("Moving", playerMoving);
+        animator.SetFloat("LastMoveX", lastMove.x);
+        animator.SetFloat("LastMoveY", lastMove.y);
     }
 }
+
