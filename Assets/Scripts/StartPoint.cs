@@ -8,17 +8,15 @@ public class StartPoint : MonoBehaviour
 {
     public string startPoint;
     private PlayerController thePlayer;
+    
 
     void Start()
     {
         
-         thePlayer = FindObjectOfType<PlayerController>();
-
-        if(startPoint == thePlayer.currentMapName)
-        {
-            
-            thePlayer.transform.position = this.transform.position;
-        }
+        thePlayer = FindObjectOfType<PlayerController>();
+        
+        thePlayer.transform.position = this.transform.position;
+        
     }
 
 }

@@ -2,23 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState{Stend_R, Stend_L, Stend_U, Stend_D, Move_R, Move_L,Move_U, Move_D}
 public class PlayerController : MonoBehaviour
 {
     public string currentMapName;
-    Rigidbody2D rigidbody2D;
     public float moveSpeed;
-    
 
-    
-    
+    PlayerState _state = PlayerState.Stend_D;
+
+
+    Rigidbody2D rigidbody2D;
     Animator animator;
-    
-    
-    bool playerMoving;
+
     Vector2 vector;
 
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
@@ -28,34 +28,56 @@ public class PlayerController : MonoBehaviour
         vector.x = Input.GetAxisRaw("Horizontal");
         vector.y = Input.GetAxisRaw("Vertical");
 
-        
-        
+        switch(_state)
+        {
+            case PlayerState.Move_R:
+                UpdateMoveR();
+                break;
+            case PlayerState.Move_L:
+                UpdateMoveL();
+                break;
+            case PlayerState.Move_U:
+                UpdateMoveU();
+                break;
+            case PlayerState.Move_D:
+                UpdateMoveD();
+                break;
+        }
+
     }
 
     void FixedUpdate()
     {
-        rigidbody2D.velocity = vector.normalized * moveSpeed;
-
-        /*
-        if(vector.x != 0 || vector.y !=0)
+        if(vector.x > 0)
         {
-            
-
-            if(vector.x != 0 && vector.y !=0)
-            {
-
-            }
-
-            
+            _state = PlayerState.Move_R;
         }
-        else
-        {
-
-        }
-        */
-        
         
     }
-    
+
+    void Move()
+    {
+        rigidbody2D.velocity = vector.normalized * moveSpeed;
+    }
+
+    void UpdateMoveR()
+    {
+        Move();
+        animator.SetBool("isDirX", true);
+    }
+
+    void UpdateMoveL()
+    {
+
+    }
+
+    void UpdateMoveU()
+    {
+
+    }
+    void UpdateMoveD()
+    {
+
+    }
 }
 

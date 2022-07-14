@@ -19,7 +19,6 @@ public class SceneController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            thePlayer.currentMapName = transferMapName;
             SceneManager.LoadScene(transferMapName);
         }
 
