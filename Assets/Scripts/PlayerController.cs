@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState{Stend_R, Stend_L, Stend_U, Stend_D, Move_R, Move_L,Move_U, Move_D}
 public class PlayerController : MonoBehaviour
 {
+    public IPlayerState state;
+    public IFuncState curFunState;
+    public FunStandState funStandState;
+    public FunMoveState funMoveState;
+    public FunAttackState funAttackState;
+    
     public string currentMapName;
     public float moveSpeed;
-
-    PlayerState _state = PlayerState.Stend_D;
 
 
     Rigidbody2D rigidbody2D;
@@ -21,63 +24,78 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+
+        state = new StandState();
+        state.OnChangeState += ChangeState;
+
+        funStandState = new FunStandState(this);
+        funMoveState = new FunMoveState(this);
+        funAttackState = new FunAttackState(this);
+
+        curFunState = funStandState;
     }
 
     void Update()
     {
-        vector.x = Input.GetAxisRaw("Horizontal");
-        vector.y = Input.GetAxisRaw("Vertical");
-
-        switch(_state)
-        {
-            case PlayerState.Move_R:
-                UpdateMoveR();
-                break;
-            case PlayerState.Move_L:
-                UpdateMoveL();
-                break;
-            case PlayerState.Move_U:
-                UpdateMoveU();
-                break;
-            case PlayerState.Move_D:
-                UpdateMoveD();
-                break;
-        }
-
+        state.Excute();
+        GetInput();
     }
 
     void FixedUpdate()
     {
-        if(vector.x > 0)
-        {
-            _state = PlayerState.Move_R;
-        }
-        
+        //curFunState.Move();
+        Move();
     }
 
     void Move()
     {
+        //animator.SetBool("Walking", true);
+
         rigidbody2D.velocity = vector.normalized * moveSpeed;
+
+        if(vector.x !=0)
+        {
+            animator.SetBool("Walking", true);
+            animator.SetFloat("DirX", vector.x);
+            animator.SetFloat("DirY", 0.0f);
+            
+        }
+        
+        /*
+        if(vector.y != 0)
+        {
+            animator.SetBool("Walking", true);
+            animator.SetFloat("DirX", 0.0f);
+            animator.SetFloat("DirY", vector.y);
+        }
+        */
     }
 
-    void UpdateMoveR()
+    void GetInput()
     {
-        Move();
-        animator.SetBool("isDirX", true);
+        vector.x = Input.GetAxisRaw("Horizontal");
+        vector.y = Input.GetAxisRaw("Vertical");
     }
 
-    void UpdateMoveL()
+    void ChangeState(PlayerState newState)
     {
+        state.OnChangeState-= ChangeState;
 
+        if (newState == PlayerState.Stand)
+        {
+            state = new StandState();
+        }
+        else if (newState == PlayerState.Move)
+        {
+            state = new MoveState();
+        }
+        
+        state.OnChangeState += ChangeState;
     }
 
-    void UpdateMoveU()
+    public void ChangeFunState(IFuncState nextState)
     {
-
-    }
-    void UpdateMoveD()
-    {
-
+        curFunState = nextState;
     }
 }
 

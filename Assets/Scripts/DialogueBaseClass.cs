@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DialogueBaseClass : MonoBehaviour
+{
+    
+    protected IEnumerator WriteText(string input, Text textHolder, Color textColor, Font textFont, float delay, AudioClip sound)
+    {
+        textHolder.color = textColor;
+        textHolder.font = textFont;
+        for(int i = 0; 0 <input.Length; i++)
+        {
+            textHolder.text += input[i];
+            SoundManager.instance.PlaySound(sound);
+            yield return new WaitForSeconds(delay);
+        }
+    }
+}
