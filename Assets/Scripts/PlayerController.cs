@@ -49,26 +49,28 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        //animator.SetBool("Walking", true);
-
         rigidbody2D.velocity = vector.normalized * moveSpeed;
+
+
+        if(vector.x == 0 || vector.y == 0)
+        {
+            animator.SetBool("Walking", false);
+            
+        }
 
         if(vector.x !=0)
         {
             animator.SetBool("Walking", true);
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", 0.0f);
-            
         }
-        
-        /*
-        if(vector.y != 0)
+
+         if(vector.y != 0)
         {
             animator.SetBool("Walking", true);
             animator.SetFloat("DirX", 0.0f);
-            animator.SetFloat("DirY", vector.y);
+            animator.SetFloat("DirY", vector.y);  
         }
-        */
     }
 
     void GetInput()
