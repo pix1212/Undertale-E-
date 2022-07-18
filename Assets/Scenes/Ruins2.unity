@@ -1367,6 +1367,7 @@ GameObject:
   - component: {fileID: 546482404}
   - component: {fileID: 546482403}
   - component: {fileID: 546482402}
+  - component: {fileID: 546482405}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1439,6 +1440,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546482405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546482401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5e69874a2011343844803063f07041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memo: "\uC784\uC2DC \uCE74\uBA54\uB77C"
 --- !u!1 &805364624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,6 +1581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 896689659}
   - component: {fileID: 896689658}
+  - component: {fileID: 896689660}
   m_Layer: 0
   m_Name: Flowey Point
   m_TagString: Untagged
@@ -1607,6 +1622,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &896689660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896689657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5e69874a2011343844803063f07041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memo: "\uD50C\uB77C\uC704 \uC785\uC7A5 \uC560\uB2C8\uBA54\uC774\uC158 \uC7AC\uC0DD
+    \uC704\uCE58\n\n\uB300\uD654 \uC885\uB8CC \uD6C4 \uD1F4\uC7A5 \uC560\uB2C8\uBA54\uC774\uC158,
+    \uB300\uD654 \uCDA9\uB3CC\uCCB4 \uC0AD\uC81C, \uB300\uD654 ui \uBE44\uD65C\uC131\uD654\n\n\n\n\n"
 --- !u!1001 &985472872
 PrefabInstance:
   m_ObjectHideFlags: 0

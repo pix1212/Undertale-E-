@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public IPlayerState state;
-    public IFuncState curFunState;
-    public FunStandState funStandState;
-    public FunMoveState funMoveState;
-    public FunAttackState funAttackState;
-    
-    public string currentMapName;
+    //public IPlayerState state;
     public float moveSpeed;
 
 
@@ -18,7 +12,6 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     Vector2 vector;
-    Vector2 preVector;
 
     void Start()
     {
@@ -26,25 +19,19 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
 
-        state = new StandState();
-        state.OnChangeState += ChangeState;
+        //state = new IdleState();
+        //state.OnChangeState += ChangeState;
 
-        funStandState = new FunStandState(this);
-        funMoveState = new FunMoveState(this);
-        funAttackState = new FunAttackState(this);
-
-        curFunState = funStandState;
     }
 
     void Update()
     {
-        state.Excute();
+        //state.Excute();
         GetInput();
     }
 
     void FixedUpdate()
     {
-        //curFunState.Move();
         Move();
     }
 
@@ -52,10 +39,12 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody2D.velocity = vector.normalized * moveSpeed;
 
+        
         if(vector.x == 0 || vector.y == 0)
         {
             animator.SetBool("Walking", false);
         }
+        
 
         if(vector.x != 0)
         {
@@ -79,10 +68,6 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("DirX", 0.0f);
             animator.SetFloat("DirY", vector.y);
         }
-
-        
-
-
     }
 
 
@@ -96,25 +81,30 @@ public class PlayerController : MonoBehaviour
 
     }
 
+/*
     void ChangeState(PlayerState newState)
     {
         state.OnChangeState-= ChangeState;
 
-        if (newState == PlayerState.Stand)
+        if (newState == PlayerState.Conversation)
         {
-            state = new StandState();
+            state = new ConversationState();
         }
-        else if (newState == PlayerState.Move)
+        else if (newState == PlayerState.Battel)
         {
-            state = new MoveState();
+            state = new BattelState();
+        }
+        else if (newState == PlayerState.Dead)
+        {
+            state = new DeadState();
+        }
+        else if (newState == PlayerState.Idle)
+        {
+            state = new IdleState();
         }
         
         state.OnChangeState += ChangeState;
     }
-
-    public void ChangeFunState(IFuncState nextState)
-    {
-        curFunState = nextState;
-    }
+    */
 }
 

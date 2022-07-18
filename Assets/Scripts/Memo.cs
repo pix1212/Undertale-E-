@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Memo : MonoBehaviour
 {
-    [TextArea(10, 10)]
-    public string memo;
-
+    [SerializeField]
+    [TextArea]
+    public string Notes = "Comment Here.";
 }

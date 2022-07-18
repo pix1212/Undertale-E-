@@ -25,11 +25,11 @@ public class FunStandState : IFuncState
 
     public void Move()
     {
-        player.ChangeFunState(player.funMoveState);
+       // player.ChangeFunState(player.funMoveState);
     }
     public void Attack()
     {
-        player.ChangeFunState(player.funAttackState);
+       // player.ChangeFunState(player.funAttackState);
     }
 }
 
@@ -44,7 +44,7 @@ public class FunMoveState : IFuncState
 
     public void Stand()
     {
-        player.ChangeFunState(player.funStandState);
+       // player.ChangeFunState(player.funStandState);
     }
     public void Move()
     {
@@ -52,7 +52,7 @@ public class FunMoveState : IFuncState
     }
     public void Attack()
     {
-        player.ChangeFunState(player.funAttackState);
+        //player.ChangeFunState(player.funAttackState);
     }
 }
 
