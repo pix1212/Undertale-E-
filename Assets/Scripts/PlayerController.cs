@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     Vector2 vector;
+    Vector2 preVector;
 
     void Start()
     {
@@ -51,32 +52,48 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody2D.velocity = vector.normalized * moveSpeed;
 
-
         if(vector.x == 0 || vector.y == 0)
         {
             animator.SetBool("Walking", false);
-            
         }
 
-        if(vector.x !=0)
+        if(vector.x != 0)
         {
+            if(vector.y != 0)
+            {
+                return;
+            }
             animator.SetBool("Walking", true);
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", 0.0f);
         }
 
-         if(vector.y != 0)
+        if(vector.y != 0)
         {
+            if(vector.x != 0 )
+            {
+                return;
+            } 
+
             animator.SetBool("Walking", true);
             animator.SetFloat("DirX", 0.0f);
-            animator.SetFloat("DirY", vector.y);  
+            animator.SetFloat("DirY", vector.y);
         }
+
+        
+
+
     }
+
+
+
 
     void GetInput()
     {
+        
         vector.x = Input.GetAxisRaw("Horizontal");
         vector.y = Input.GetAxisRaw("Vertical");
+
     }
 
     void ChangeState(PlayerState newState)
