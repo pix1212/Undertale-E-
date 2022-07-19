@@ -80,31 +80,10 @@ public class PlayerController : MonoBehaviour
         vector.y = Input.GetAxisRaw("Vertical");
 
     }
-
-/*
-    void ChangeState(PlayerState newState)
+    
+    void Action()
     {
-        state.OnChangeState-= ChangeState;
-
-        if (newState == PlayerState.Conversation)
-        {
-            state = new ConversationState();
-        }
-        else if (newState == PlayerState.Battel)
-        {
-            state = new BattelState();
-        }
-        else if (newState == PlayerState.Dead)
-        {
-            state = new DeadState();
-        }
-        else if (newState == PlayerState.Idle)
-        {
-            state = new IdleState();
-        }
         
-        state.OnChangeState += ChangeState;
     }
-    */
 }
 
