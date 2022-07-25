@@ -6,12 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     //public IPlayerState state;
     public float moveSpeed;
-
+    bool isActing;
 
     Rigidbody2D rigidbody2D;
     Animator animator;
 
     Vector2 vector;
+    Vector3 playerDir;
+
 
     void Start()
     {
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         //state.Excute();
         GetInput();
+        Action();
     }
 
     void FixedUpdate()
@@ -37,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        if (isActing)
+            return;
+
         rigidbody2D.velocity = vector.normalized * moveSpeed;
 
         
@@ -48,6 +54,12 @@ public class PlayerController : MonoBehaviour
 
         if(vector.x != 0)
         {
+            if(vector.x > 0)
+            playerDir = Vector3.right;
+
+            else if(vector.x < 0)
+            playerDir = Vector3.left;
+            
             if(vector.y != 0)
             {
                 return;
@@ -55,10 +67,20 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Walking", true);
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", 0.0f);
+
+            
+
+            
         }
 
         if(vector.y != 0)
         {
+            if(vector.y > 0)
+            playerDir = Vector3.up;
+            
+            else if(vector.y < 0)
+            playerDir = Vector3.down;
+
             if(vector.x != 0 )
             {
                 return;
@@ -67,6 +89,9 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Walking", true);
             animator.SetFloat("DirX", 0.0f);
             animator.SetFloat("DirY", vector.y);
+
+            
+            
         }
     }
 
@@ -83,6 +108,30 @@ public class PlayerController : MonoBehaviour
     
     void Action()
     {
+        Debug.DrawRay(rigidbody2D.position, playerDir * 16.0f, Color.red);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rigidbody2D.position, playerDir, 16.0f, LayerMask.GetMask("NPC"));
+            
+            if(null != hit.collider)
+            {
+                IInterAction target = hit.collider.gameObject.GetComponent<IInterAction>();
+                if(null != target)
+                {
+                    isActing = target.ReAction();
+                    return;
+                }
+
+            }
+            
+            
+        }
+        
+
+        
+        
+
         
     }
 }

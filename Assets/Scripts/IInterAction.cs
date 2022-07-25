@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IInterAction
 {
-    void ReAction();
+    bool ReAction();
 }

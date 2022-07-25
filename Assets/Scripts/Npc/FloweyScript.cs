@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class FloweyScript : MonoBehaviour, IInterAction
 {
+    DialogManager dialogManager;
+    public string[] converstation;
+    int converstationIndex = 0;
     Animator animator;
+    public BoxCollider2D trigger;
+    
 
     void Start()
     {
+        dialogManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogManager>();
         animator = GetComponent<Animator>();
+        trigger = GetComponent<BoxCollider2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
@@ -20,8 +27,38 @@ public class FloweyScript : MonoBehaviour, IInterAction
 
     }
 
-    public void ReAction()
+    public bool ReAction()
     {
+        if(converstationIndex < converstation.Length)
+        {
+            Talk();
+            return true;
+        }
+        else
+        {
+            animator.SetBool("isTalk", false);
+            animator.SetBool("isStart", false);
+            dialogManager.SetActiveDialog(false);
+            converstationIndex = 0;
+
+            return false;
+        }
         
     }
+
+    public void Talk()
+    {
+            animator.SetBool("isTalk", true);
+            dialogManager.SetActiveDialog(true);
+            dialogManager.SetDialogContent(converstation[converstationIndex]);
+            converstationIndex++;
+
+    }
+
+    public void TalkEnd()
+    {
+        trigger.enabled = false;
+    }
+
 }
+
