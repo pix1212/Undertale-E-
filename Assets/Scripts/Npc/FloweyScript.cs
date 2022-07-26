@@ -22,7 +22,7 @@ public class FloweyScript : MonoBehaviour, IInterAction
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("isStart", true);
+            animator.SetBool("isUp", true);
         }
 
     }
@@ -36,11 +36,8 @@ public class FloweyScript : MonoBehaviour, IInterAction
         }
         else
         {
-            animator.SetBool("isTalk", false);
-            animator.SetBool("isStart", false);
+            animator.SetBool("isDown", true);
             dialogManager.SetActiveDialog(false);
-            converstationIndex = 0;
-
             return false;
         }
         
@@ -48,16 +45,16 @@ public class FloweyScript : MonoBehaviour, IInterAction
 
     public void Talk()
     {
-            animator.SetBool("isTalk", true);
-            dialogManager.SetActiveDialog(true);
-            dialogManager.SetDialogContent(converstation[converstationIndex]);
-            converstationIndex++;
+        animator.SetBool("isTalk", true);
+        dialogManager.SetActiveDialog(true);
+        dialogManager.SetDialogContent(converstation[converstationIndex]);
+        converstationIndex++;
 
     }
 
     public void TalkEnd()
     {
-        trigger.enabled = false;
+        Destroy(gameObject);
     }
 
 }
