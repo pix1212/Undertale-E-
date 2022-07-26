@@ -8,14 +8,12 @@ public class FloweyScript : MonoBehaviour, IInterAction
     public string[] converstation;
     int converstationIndex = 0;
     Animator animator;
-    public BoxCollider2D trigger;
     
 
     void Start()
     {
         dialogManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogManager>();
         animator = GetComponent<Animator>();
-        trigger = GetComponent<BoxCollider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

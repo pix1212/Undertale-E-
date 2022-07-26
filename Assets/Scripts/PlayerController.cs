@@ -21,26 +21,24 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
 
-        //state = new IdleState();
-        //state.OnChangeState += ChangeState;
-
     }
 
     void Update()
     {
-        //state.Excute();
         GetInput();
         Action();
+        Checked();
     }
 
     void FixedUpdate()
     {
         Move();
+        
     }
 
     void Move()
     {
-        if (isActing)
+        if(isActing)
             return;
 
         rigidbody2D.velocity = vector.normalized * moveSpeed;
@@ -109,7 +107,6 @@ public class PlayerController : MonoBehaviour
     void Action()
     {
         Debug.DrawRay(rigidbody2D.position, playerDir * 16.0f, Color.red);
-
         if(Input.GetKeyDown(KeyCode.Space))
         {
             RaycastHit2D hit = Physics2D.Raycast(rigidbody2D.position, playerDir, 16.0f, LayerMask.GetMask("NPC"));
@@ -122,17 +119,24 @@ public class PlayerController : MonoBehaviour
                     isActing = target.ReAction();
                     return;
                 }
-
             }
-            
-            
         }
-        
-
-        
-        
-
-        
     }
+
+    void Checked()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidbody2D.position, playerDir, 16.0f, LayerMask.GetMask("Heart"));
+        if(null != hit.collider)
+            {
+                Destroy(gameObject);
+                return;
+            }
+    }
+
+    void Puse()
+    {
+
+    }
+
 }
 

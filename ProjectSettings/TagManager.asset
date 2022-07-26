@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DialogueManager
+  - Heart
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - BackGround
   - Player
   - NPC
-  - 
+  - Heart
   - 
   - 
   - 
@@ -45,9 +46,15 @@ TagManager:
   - name: BackGround
     uniqueID: 3473102691
     locked: 0
+  - name: NPC
+    uniqueID: 1968132503
+    locked: 0
   - name: Player
     uniqueID: 2892059273
     locked: 0
   - name: UI
     uniqueID: 1567786653
+    locked: 0
+  - name: Heart
+    uniqueID: 2094824497
     locked: 0
